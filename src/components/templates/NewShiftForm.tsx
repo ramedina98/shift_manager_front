@@ -10,7 +10,7 @@ import Button from "../atoms/Button";
 import { IDoctosList } from "../../interfaces/IUser";
 
 const NewShiftForm: React.FC = () => {
-    const { createNewShift, doctors , increasesTheNewShift, turno } = useShift();
+    const { createNewShift, doctors , turno } = useShift();
 
     const [citado, setCitado] = useState<boolean>(false);
     const [horaCita, setHoraCita] = useState<string>();
@@ -143,7 +143,6 @@ const NewShiftForm: React.FC = () => {
                     }
                     await createNewShift(data);
                     cleanForm();
-                    increasesTheNewShift();
                     return;
                 }
 
@@ -159,7 +158,6 @@ const NewShiftForm: React.FC = () => {
                 await createNewShift(data);
 
                 cleanForm();
-                increasesTheNewShift();
             break;
 
             case 'clean':
