@@ -12,32 +12,39 @@ const DisplayCitados: React.FC<DisplayCitasProps> = ({data}) => {
 
     useEffect(() => {
         if (!data || data.length === 0) {
-            console.error("No hay datos para mostrar.");
+            setInfo([]);
             return;
         }
 
         const cleanDataArray = (): void => {
-            const cleanedData: ICitas[] = data.map((item: ICitas, _index: number) => {
-                return {
+
+            const cleanedData: ICitas[] = data
+                .map((item: ICitas) => ({
                     nombre_doc: item.nombre_doc,
                     apellido_doc: item.apellido_doc,
-                    nombre_paciente: item.nombre_paciente, // Corrige aquí
+                    nombre_paciente: item.nombre_paciente,
                     apellido_paciente: item.apellido_paciente,
                     turno: item.turno,
                     hora_cita: item.hora_cita
-                };
-            }).filter(item => item !== null); // Filtra valores nulos
+                }))
+                .filter(item => {
+                    const hasInvalidValues = Object.values(item).some(
+                        value =>
+                            (Array.isArray(value) && value.length === 0) ||
+                            value === null ||
+                            value === undefined
+                    );
 
-            if(data.length > 1){
-                let twoItems: ICitas[] = [];
-                twoItems.push(cleanedData[0]);
-                twoItems.push(cleanedData[1]);
+                    return !hasInvalidValues;
+                });
 
+            if (cleanedData.length > 1) {
+                const twoItems = cleanedData.slice(0, 2);
                 setInfo(twoItems);
                 return;
             }
             setInfo(cleanedData);
-        }
+        };
 
         cleanDataArray();
     }, [data]);

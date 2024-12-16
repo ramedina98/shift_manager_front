@@ -11,7 +11,7 @@ const DisplayAsignados: React.FC<DisplayAsignadosProps> = ({data}) => {
 
     useEffect(() => {
         if (!data || data.length === 0) {
-            console.error("No hay datos para mostrar.");
+            setInfo([]);
             return;
         }
 

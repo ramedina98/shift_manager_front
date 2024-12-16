@@ -1,7 +1,8 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { Routes, Route, Navigate} from "react-router-dom"
 import { AuthProvider } from "./contexts/AuthContext";
 import { ShiftProvider } from "./contexts/ShiftContext";
+import { useLocation, useNavigate } from "react-router-dom";
 import HomePage from "./pages/homePages";
 import DoctorPage from "./pages/DoctorPage";
 import LoginForm from "./components/templates/LoginForm";
@@ -14,6 +15,18 @@ import ShiftsDisplay from "./pages/ShiftsDisplay";
 
 
 const App: React.FC = () => {
+
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+      if (location.pathname.startsWith("/inicio") && location.pathname !== "/inicio") {
+        navigate("/inicio");
+      }
+    }
+  }, []);
+
   return(
     <AuthProvider>
       <ShiftProvider>

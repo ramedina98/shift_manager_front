@@ -11,7 +11,7 @@ const DisplayTurnos: React.FC<DisplayTurnosProps> = ({data}) => {
 
     useEffect(() => {
         if (!data || data.length === 0) {
-            console.error("No hay datos para mostrar.");
+            setInfo([]);
             return;
         }
 

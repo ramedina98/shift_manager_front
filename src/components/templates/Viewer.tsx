@@ -22,7 +22,7 @@ const Viewer: React.FC = () => {
 
         updateListsData();
 
-    }, [newShiftMessage])
+    }, [newShiftMessage, fetchedShifts]);
 
     return (
         <div

@@ -38,7 +38,6 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 } else if(status === 200){
                     if(data){
                         setFetchedShifts(data);
-                        console.log("data en la funcion", data)
                     }
                 }
             } catch (error: any) {
@@ -66,7 +65,11 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
                 consultas: messages[messages.length - 1].shiftsData.consultas
             }
 
-            console.log('datos: ', shiftInfo);
+            setFetchedShifts({
+                consultas: [],
+                asignados: [],
+                citas: []
+            });
             setFetchedShifts(shiftInfo);
 
             const time = messages[messages.length - 1].code === 2 ? 2500 : 1500;
@@ -76,7 +79,7 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             }, time);
         }
 
-        if(messages.length !== 0){
+        if(messages.length > 0){
             processWebSocketData();
         }
 
@@ -88,8 +91,6 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         if(currentShift === null){
             return;
         }
-
-        console.log("Turno: " + currentShift);
 
         // Extraemos la letra y el número
         const letter = currentShift.charAt(0);  // La letra
@@ -133,8 +134,6 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             }, 1000);
         }
     }, [messages]);
-
-    console.log(newShiftMessage)
 
     useEffect(() => {
         // This function helps me to obtain the current assigned patient of an specific doctor...

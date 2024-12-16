@@ -202,7 +202,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         setSuccessMessage(null);
 
         if(!token){
-            console.log("No token available for logout.");
             setErrorMessage('No token available for logout.');
             return;
         }
