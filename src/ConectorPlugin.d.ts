@@ -21,7 +21,7 @@ declare module "*printer-system/ConectorPlugin.js" {
         constructor(ruta?: string, serial?: string);
         // metodos...
         CargarImagenLocalEImprimir(ruta, maximoAncho, algoritmo): this;
-        Corte(): this;
+        Corte(lineas: any): this;
         CorteParcial(): this;
         DefinirCaracterPersonalizado(caracterRemplazo: any, matriz: any): this;
         DescargarImagenDeInternetEImprimir(urlImagen: any, maximoAncho: any, algoritmo: any): this;

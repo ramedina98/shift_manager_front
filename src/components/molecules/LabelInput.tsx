@@ -16,12 +16,13 @@ interface LabelInputProps {
     inputType: string;
     placeholder?: string;
     value?: string;
+    min?: number;
     inputHanler: (e: React.ChangeEvent<HTMLInputElement>) => void;
     onBluerHandler?: (e: React.FocusEvent<HTMLInputElement>) => void;
     accept?: string;
 }
 
-const LabelInput: React.FC<LabelInputProps> = ({ icon, iconClassName, labelText, labelClassname, inputClassname, inputId, inputName, inputMax, inputType, placeholder, value, inputHanler, onBluerHandler, accept }) => {
+const LabelInput: React.FC<LabelInputProps> = ({ icon, iconClassName, labelText, labelClassname, inputClassname, inputId, inputName, inputMax, inputType, placeholder, min, value, inputHanler, onBluerHandler, accept }) => {
     return (
         <div
             className="w-auto h-auto"
@@ -32,7 +33,7 @@ const LabelInput: React.FC<LabelInputProps> = ({ icon, iconClassName, labelText,
                     {labelText}
                 </Label>
             </div>
-            <Input classname={inputClassname} name={inputName} id={inputId} type={inputType} max={inputMax} placeholder={placeholder} value={value} onChange={inputHanler} onBlur={onBluerHandler} accept={accept}/>
+            <Input classname={inputClassname} min={min} name={inputName} id={inputId} type={inputType} max={inputMax} placeholder={placeholder} value={value} onChange={inputHanler} onBlur={onBluerHandler} accept={accept}/>
         </div>
     );
 }

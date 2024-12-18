@@ -9,6 +9,7 @@ import Footer from "../components/organisms/Footer";
 import UpdateUserInfo from "../components/templates/UpdateUserInfo";
 import NewShiftForm from "../components/templates/NewShiftForm";
 import useWebSocket from "../hooks/useWebSocket";
+import SelectorPrinter from "../components/organisms/SelectorPrinter";
 
 const wsUrl: string = import.meta.env.VITE_WS_URL;
 
@@ -16,6 +17,7 @@ const ShiftCreatorPage: React.FC = () => {
     const { logout } = useAuth();
 
     const [settings, setSettings] = useState<boolean>(false);
+    const [namePrinter, setNamePrinter] = useState<string | null>(null);
 
     const { shiftMessageError, shiftMessageSuccess, increasesTheNewShift, fetchLastShift} = useShift();
     const { errorMessage, successMessage } = useAuth();
@@ -75,7 +77,7 @@ const ShiftCreatorPage: React.FC = () => {
                 )}
                 <div
                     className="bg-Muted_Blue rounded-md flex flex-wrap gap-6 justify-between items-center p-3"
-                    style={{ width: '380px', position: 'absolute', top: '160px', left: '70px'}}
+                    style={{ width: '600px', position: 'absolute', top: '160px', left: '70px'}}
                 >
                     <button
                         onClick={logout}
@@ -91,8 +93,13 @@ const ShiftCreatorPage: React.FC = () => {
                     >
                         Ajustes
                     </button>
+                    <SelectorPrinter
+                        setNamePrinter={setNamePrinter}
+                    />
                 </div>
-                <NewShiftForm />
+                <NewShiftForm
+                    namePrinter={namePrinter}
+                />
             </main>
             <Footer />
         </div>

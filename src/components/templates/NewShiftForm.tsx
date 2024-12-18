@@ -9,7 +9,11 @@ import IconHolder from "../molecules/IconHolder";
 import Button from "../atoms/Button";
 import { IDoctosList } from "../../interfaces/IUser";
 
-const NewShiftForm: React.FC = () => {
+interface NewShiftFormProps {
+    namePrinter: string | null ;
+}
+
+const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
     const { createNewShift, doctors , turno } = useShift();
 
     const [citado, setCitado] = useState<boolean>(false);
@@ -141,7 +145,7 @@ const NewShiftForm: React.FC = () => {
                         apellido_doc: newShifInfo.apellido_doc,
                         hora_cita: newShifInfo.hora_cita
                     }
-                    await createNewShift(data);
+                    await createNewShift(data, namePrinter);
                     cleanForm();
                     return;
                 }
@@ -155,7 +159,7 @@ const NewShiftForm: React.FC = () => {
                     activo: true,
                 }
 
-                await createNewShift(data);
+                await createNewShift(data, namePrinter);
 
                 cleanForm();
             break;

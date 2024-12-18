@@ -3,7 +3,7 @@ import { fetchingShifts, currentPatient, nextPatient, finishConsultation, newPat
 import { useAuth } from "./AuthContext";
 import { IAsignados, IfinishConsultationData, IPacienteCitado, IPacienteNoId, IShiftContext, IShifts, IShiftData } from "../interfaces/IShift";
 import useWebSocket from "../hooks/useWebSocket";
-// import { printShiftTicket } from "../services/printerService";
+import { printShiftTicket } from "../services/printerService";
 import { IDoctosList } from "../interfaces/IUser";
 
 const wsUrl: string = import.meta.env.VITE_WS_URL;
@@ -164,9 +164,15 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     }, []);
 
     // This function helps me with the process of create a new shift in the data base...
-    const createNewShift = async (patientData: IPacienteNoId | IPacienteCitado): Promise<void> => {
+    const createNewShift = async (patientData: IPacienteNoId | IPacienteCitado, namePrinter: string | null): Promise<void> => {
         setShiftsMessageError(null);
         setShiftsMessageSuccess(null);
+
+        if(namePrinter === null || namePrinter === 'option'){
+            setShiftsMessageError('No hay una impresora seleccionada.')
+            return;
+        }
+
         try {
             const {status, message, data}: {status: number, message?: string, data?: IShiftData} = await newPatient(patientData);
 
@@ -178,8 +184,7 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             } else if(status === 201){
                 if(data && message){
                     setShiftsMessageSuccess(message);
-                    // TODO: Desarrollar compelta la función...
-                    //printShiftTicket(data);
+                    printShiftTicket(data, namePrinter);
                 }
             }
         } catch (error: any) {

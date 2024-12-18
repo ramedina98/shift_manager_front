@@ -2,7 +2,7 @@ import { IDoctosList } from "./IUser";
 export interface IShiftContext {
     fetchedShifts: IShifts;
     setFetchedShifts: React.Dispatch<React.SetStateAction<IShifts>>;
-    createNewShift: (data: any) => Promise<void>;
+    createNewShift: (data: any, namePrinter: string | null) => Promise<void>;
     nextShift: () => Promise<void>;
     finishShift: (finishConsultationData: IfinishConsultationData) => Promise<void>;
     updateOfficeInfo: (num: number) => Promise<void>;

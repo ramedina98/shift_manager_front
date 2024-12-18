@@ -133,6 +133,7 @@ const LoginForm: React.FC = () => {
                     inputId={'Consultorio'}
                     inputName={'consultorio'}
                     inputMax={50}
+                    min={0}
                     inputType={'number'}
                     placeholder={'Numero de consultorio'}
                     inputHanler={inputsHandler}
