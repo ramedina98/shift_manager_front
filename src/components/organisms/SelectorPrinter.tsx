@@ -23,13 +23,16 @@ const SelectorPrinter: React.FC<ISelectorPrinterProps> = ({setNamePrinter}) => {
 
                 if(response.status !== 200){
                     console.log('Algo salio mal.');
-                    setShiftsMessageError('No se encontro impresora disponible.');
-                    setImpresoras(null);
+                    setShiftsMessageError(null);
+                    setTimeout(() => {
+                        setShiftsMessageError('No se encontro impresora disponible.');
+                        setImpresoras(null);
+                    }, 1000);
                 } else{
                     setImpresoras(response.data);
                 }
             } catch (error: any) {
-                console.log(`Error: ${error.message}`);
+                console.error(`Error plugin 8080:: ${error.message}`);
                 setShiftsMessageError(`Error plugin 8080: ${error.message}`);
             }
         }
