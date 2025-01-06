@@ -27,7 +27,7 @@ const Viewer: React.FC = () => {
     return (
         <div
             className="p-6 bg-Dark_Blue rounded-md shadow-md mt-2 mb-4 flex flex-wrap justify-between items-start gap-4"
-            style={{ width: 'clamp(210px, 90%, 1350px)', minHeight: '530px' }}
+            style={{ width: 'clamp(210px, 90%, 1350px)', minHeight: '77vh' }}
         >
             {/**TODO: Visualizador de turnos en espera*/}
             <DisplayTurnos

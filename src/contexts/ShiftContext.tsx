@@ -19,6 +19,7 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const [shiftMessageSuccess, setShiftsMessageSuccess] = useState<string | null>(null);
     const [consultationDate, setConsultationDate] = useState<Date | null>(null);
     const [turno, setTurno] = useState<string>("A0000");
+    const [iterator, setItarator] = useState<number>(0);
     const [newShiftMessage, setNewShiftMessage] = useState<{title : string, message: string, code: number} | null>(null);
     //const [ws, setWs] = useState<WebSocket | null>(null);
     const { token, setErrorMessage, setSuccessMessage, setConsultorio } = useAuth();
@@ -163,16 +164,8 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         () => clearTimeout(timeOut);
     }, []);
 
-    // This function helps me with the process of create a new shift in the data base...
-    const createNewShift = async (patientData: IPacienteNoId | IPacienteCitado, namePrinter: string | null): Promise<void> => {
-        setShiftsMessageError(null);
-        setShiftsMessageSuccess(null);
-
-        if(namePrinter === null || namePrinter === 'option'){
-            setShiftsMessageError('No hay una impresora seleccionada.')
-            return;
-        }
-
+    // thi functio works together with the function below, it os responsible for making the call to the api...
+    const sendingDataNewShift = async (patientData: IPacienteNoId | IPacienteCitado, namePrinter: string): Promise<void> => {
         try {
             const {status, message, data}: {status: number, message?: string, data?: IShiftData} = await newPatient(patientData);
 
@@ -190,6 +183,26 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         } catch (error: any) {
             console.error("fetching fallido:" + error.message);
         }
+    }
+    // This function helps me with the process of create a new shift in the data base...
+    const createNewShift = async (patientData: IPacienteNoId | IPacienteCitado, namePrinter: string | null): Promise<void> => {
+        setShiftsMessageError(null);
+        setShiftsMessageSuccess(null);
+
+        if(namePrinter === null || namePrinter === '0'){
+            setShiftsMessageError('No hay una impresora seleccionada.');
+            if(iterator === 0){
+                alert("No hay impresora seleccionada, para continuar de click aqui, y ingrese los datos de nuevo.");
+                setItarator(prev => prev + 1);
+                return;
+            }
+
+            // a name by default...
+            await sendingDataNewShift(patientData, "0");
+            return;
+        }
+
+        await sendingDataNewShift(patientData, namePrinter);
     }
 
     // This function helps me to handle the process of assign a new shift...

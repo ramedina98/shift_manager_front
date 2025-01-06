@@ -28,6 +28,7 @@ const SelectorPrinter: React.FC<ISelectorPrinterProps> = ({setNamePrinter}) => {
                         setShiftsMessageError('No se encontro impresora disponible.');
                         setImpresoras(null);
                     }, 1000);
+                    setShiftsMessageError(null);
                 } else{
                     setImpresoras(response.data);
                 }
@@ -51,7 +52,7 @@ const SelectorPrinter: React.FC<ISelectorPrinterProps> = ({setNamePrinter}) => {
             onChange={handlerSelectPrinter}
         >
             <option
-                value={'option'}
+                value={'0'}
             >
                 Impresora
             </option>
