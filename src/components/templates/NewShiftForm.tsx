@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
 import { faUser, faUserEdit, faFileMedical, faCalendarCheck, faStethoscope, faClock } from "@fortawesome/free-solid-svg-icons";
 import { useShift } from "../../contexts/ShiftContext";
-import { IPacienteCitado, IPacienteNoId } from "../../interfaces/IShift";
+import { IPacienteCitado, IPacienteNoId, IShiftData } from "../../interfaces/IShift";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { IDoctosList } from "../../interfaces/IUser";
+import { formatDateTime } from "../../utils/timeUthils";
 import LabelInput from "../molecules/LabelInput";
 import LabelOutput from "../molecules/LabelOutput";
 import IconHolder from "../molecules/IconHolder";
 import Button from "../atoms/Button";
-import { IDoctosList } from "../../interfaces/IUser";
+import { printShiftTicket } from "../../services/printerService";
 
 interface NewShiftFormProps {
     namePrinter: string | null ;
@@ -19,6 +21,7 @@ const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
     const [citado, setCitado] = useState<boolean>(false);
     const [horaCita, setHoraCita] = useState<string>();
     const [selectDoctorsInfo, setSelectDoctorsInfo] = useState<IDoctosList[] | undefined>(undefined);
+    const [reImprecionData, setReImprecionData] = useState<IShiftData>({paciente_nombre: '', turno: turno, datatime: ''});
     const [newShifInfo, setNewShifInfo] = useState<IPacienteCitado>({
         nombre_paciente: '',
         apellido_paciente: '',
@@ -146,6 +149,11 @@ const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
                         hora_cita: newShifInfo.hora_cita
                     }
                     await createNewShift(data, namePrinter);
+                    setReImprecionData({
+                        paciente_nombre: `${data.nombre_paciente} ${data.apellido_paciente}`,
+                        turno: data.turno,
+                        datatime: formatDateTime()
+                    });
                     cleanForm();
                     return;
                 }
@@ -160,12 +168,20 @@ const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
                 }
 
                 await createNewShift(data, namePrinter);
-
+                setReImprecionData({
+                    paciente_nombre: `${data.nombre_paciente} ${data.apellido_paciente}`,
+                    turno: data.turno,
+                    datatime: formatDateTime()
+                });
                 cleanForm();
             break;
 
             case 'clean':
                 cleanForm();
+            break;
+
+            case 're':
+                await printShiftTicket(reImprecionData, namePrinter || '0');
             break;
         }
     }
@@ -302,6 +318,9 @@ const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
                 {/**Btns */}
                 <Button classname={`${loginButton} bg-Dark_Blue text-White mt-10 hover:bg-Dark_Grayish_Blue transition-colors`} onClick={(e) => buttonsHandler(e, 'nuevo')}>{'Nueva Consulta'}</Button>
                 <Button classname={`${nuevoUserButton} bg-Muted_Blue text-White mb-4 hover:bg-Grayish_Blue transition-colors`} onClick={(e) => buttonsHandler(e, 'clean')}>{'Cancelar'}</Button>
+                {(namePrinter) && (
+                    <Button classname={`${nuevoUserButton} bg-Muted_Blue text-White mb-4 hover:bg-Grayish_Blue transition-colors`} onClick={(e) => buttonsHandler(e, 're')}>{`Re imprimir turno: ${reImprecionData?.turno}`}</Button>
+                )}
             </div>
         </form>
     );

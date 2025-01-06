@@ -99,5 +99,5 @@ export interface IPacienteCitado extends Omit<IPaciente, 'id_consulta'>{
 export interface IShiftData {
     paciente_nombre: string;
     turno: string;
-    datatime: Date;
+    datatime: string;
 }
