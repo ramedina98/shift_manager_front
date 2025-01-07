@@ -8,6 +8,7 @@ import { IAuthContextType } from "../interfaces/IAuthInterfaces";
 import { IEmailUsername, IUserNoId, UserDataFields, INoUserIdandPasswordRequired, INoUserIdPasswordandFotoRequired, IUserPasswords } from "../interfaces/IUser";
 import extractUserInfo from "../utils/authUtils";
 import authService from '../services/authService';
+import checkTokenExpiration from "../utils/expiredToken";
 
 const AuthContext = createContext<IAuthContextType | undefined>(undefined);
 
@@ -24,20 +25,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     const location = useLocation();
 
     // protected routes...
-    const protectedRoutes = ["/medico", "/visualizador"];
+    const protectedRoutes = ["/medico", "/crear-turnos"];
 
     useEffect(() => {
-        // check if there is a token in the localStorage...
-        const savedToken: string | null = localStorage.getItem('token');
+        const handleAuthentication = async () => {
+            // Revisar si el token existe y es válido
+            await checkTokenExpiration();
 
-        if(protectedRoutes.includes(location.pathname)){
-            if(savedToken){
-                setToken(savedToken);
-                setIsAuthenticated(true);
-            } else{
-                navigate("/inicio");
+            // Obtener el token del almacenamiento local
+            const savedToken: string | null = localStorage.getItem("token");
+
+            // Verificar si la ruta actual requiere autenticación
+            if (protectedRoutes.includes(location.pathname)) {
+                if (savedToken) {
+                    setToken(savedToken);
+                    setIsAuthenticated(true);
+                } else {
+                    // Redirigir al usuario a la página de inicio si no está autenticado
+                    navigate("/inicio");
+                }
             }
-        }
+        };
+
+        handleAuthentication();
     }, [location.pathname]);
 
     /**Fetch the username and emails data, then validate it in the form and make sure that the
