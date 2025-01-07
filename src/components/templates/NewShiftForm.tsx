@@ -16,7 +16,7 @@ interface NewShiftFormProps {
 }
 
 const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
-    const { createNewShift, doctors , turno } = useShift();
+    const { createNewShift, doctors , turno, isSubmitting } = useShift();
 
     const [citado, setCitado] = useState<boolean>(false);
     const [horaCita, setHoraCita] = useState<string>();
@@ -316,7 +316,7 @@ const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
                     </div>
                 )}
                 {/**Btns */}
-                <Button classname={`${loginButton} bg-Dark_Blue text-White mt-10 hover:bg-Dark_Grayish_Blue transition-colors`} onClick={(e) => buttonsHandler(e, 'nuevo')}>{'Nueva Consulta'}</Button>
+                <Button classname={`${loginButton} bg-Dark_Blue text-White mt-10 hover:bg-Dark_Grayish_Blue transition-colors`} onClick={(e) => buttonsHandler(e, 'nuevo')} disabled={isSubmitting}>{isSubmitting ? "Enviando..." : 'Nueva Consulta'}</Button>
                 <Button classname={`${nuevoUserButton} bg-Muted_Blue text-White mb-4 hover:bg-Grayish_Blue transition-colors`} onClick={(e) => buttonsHandler(e, 'clean')}>{'Cancelar'}</Button>
                 {(namePrinter) && (
                     <Button classname={`${nuevoUserButton} bg-Muted_Blue text-White mb-4 hover:bg-Grayish_Blue transition-colors`} onClick={(e) => buttonsHandler(e, 're')}>{`Re imprimir turno: ${reImprecionData?.turno}`}</Button>

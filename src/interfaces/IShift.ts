@@ -19,6 +19,8 @@ export interface IShiftContext {
     currentShift: IAsignados | null;
     setCurrentShift: React.Dispatch<React.SetStateAction<IAsignados | null>>;
     newShiftMessage: {title: string, message: string, code: number} | null;
+    isSubmitting: boolean;
+    setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface ICitas {

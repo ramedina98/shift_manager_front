@@ -14,6 +14,7 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const { messages } = useWebSocket(wsUrl);
 
     const [fetchedShifts, setFetchedShifts] = useState<IShifts>({citas: [], consultas: [], asignados: []});
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
     const [currentShift, setCurrentShift] = useState<IAsignados | null>(null);
     const [shiftMessageError, setShiftsMessageError] = useState<string | null>(null);
     const [shiftMessageSuccess, setShiftsMessageSuccess] = useState<string | null>(null);
@@ -166,6 +167,9 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     // thi functio works together with the function below, it os responsible for making the call to the api...
     const sendingDataNewShift = async (patientData: IPacienteNoId | IPacienteCitado, namePrinter: string): Promise<void> => {
+
+        setIsSubmitting(true);
+
         try {
             const {status, message, data}: {status: number, message?: string, data?: IShiftData} = await newPatient(patientData);
 
@@ -182,6 +186,8 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             }
         } catch (error: any) {
             console.error("fetching fallido:" + error.message);
+        } finally {
+            setIsSubmitting(false);
         }
     }
     // This function helps me with the process of create a new shift in the data base...
@@ -325,7 +331,9 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             increasesTheNewShift,
             turno,
             newShiftMessage,
-            fetchLastShift
+            fetchLastShift,
+            isSubmitting,
+            setIsSubmitting
         }}>
             {children}
         </ShiftContext.Provider>
