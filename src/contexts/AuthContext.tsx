@@ -153,9 +153,33 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
         }
     }
 
+    const navigateToPage = (rol: string | null): void => {
+        switch(rol?.toLocaleLowerCase()){
+            case "medico":
+                setStatus(true);
+                // redirect the user to the main view...
+                navigate("/medico");
+                break;
+            case "cajero":
+                navigate("/crear-turnos");
+        }
+    }
+
     const login = async (user_name: string, password: string, num_consultorio: number): Promise<void> => {
         setErrorMessage(null);
         setSuccessMessage(null);
+
+        if(token){
+            setSuccessMessage("Ya hay una sesión activa.");
+            const rol: string | null = await extractUserInfo(token, UserDataFields.ROL);
+            if(rol === null){
+                setErrorMessage("Ocurrio un error, intente de nuevo.");
+            }
+
+            navigateToPage(rol);
+            return;
+        }
+
         try {
             // call authService to auth the user...
             const data = await authService.login(user_name, password, num_consultorio);
@@ -172,7 +196,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
             // storage the office num...
             localStorage.setItem("office", data.id_asig_consul);
 
-            setErrorMessage("");
+            setErrorMessage(null);
             setSuccessMessage(`${user_name} iniciaste sesión con exito`);
 
             // decoded token to retrived the rol of the user...
@@ -182,15 +206,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 setErrorMessage("Ocurrio un error, intente nuevamente.");
             }
 
-            switch(rol?.toLocaleLowerCase()){
-                case "medico":
-                    setStatus(true);
-                    // redirect the user to the main view...
-                    navigate("/medico");
-                    break;
-                case "cajero":
-                    navigate("/crear-turnos");
-            }
+            navigateToPage(rol);
         } catch (error: any) {
             console.error("Inicio de sesión fallido:", error.message);
             setErrorMessage(error.message);
@@ -216,6 +232,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
                 setToken(null);
                 setIsAuthenticated(false);
                 localStorage.removeItem('token');
+                localStorage.removeItem('office');
             }, 1500);
         } catch (error: any) {
             console.error("Error al intentar cerrar sesión:", error.message);

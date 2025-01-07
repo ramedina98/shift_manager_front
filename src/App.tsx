@@ -3,6 +3,8 @@ import { Routes, Route, Navigate} from "react-router-dom"
 import { AuthProvider } from "./contexts/AuthContext";
 import { ShiftProvider } from "./contexts/ShiftContext";
 import { useLocation, useNavigate } from "react-router-dom";
+import { UserDataFields } from "./interfaces/IUser";
+import extractUserInfo from "./utils/authUtils";
 import HomePage from "./pages/homePages";
 import DoctorPage from "./pages/DoctorPage";
 import LoginForm from "./components/templates/LoginForm";
@@ -20,12 +22,52 @@ const App: React.FC = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
-      if (location.pathname.startsWith("/inicio") && location.pathname !== "/inicio") {
-        navigate("/inicio");
+    const token = localStorage.getItem("token");
+    const publicRoutes = [
+      "/inicio",
+      "/inicio/nuevo",
+      "/inicio/recover-password",
+      "/inicio/resetpassword",
+      "/shift-display",
+    ];
+
+    const navigateToPage = async (token: string): Promise<void> => {
+      try {
+        const rol: string | null = await extractUserInfo(token, UserDataFields.ROL);
+
+        if (!rol) {
+          console.log("Error al obtener el rol del usuario.");
+          navigate("/inicio");
+          return;
+        }
+
+        switch (rol.toLowerCase()) {
+          case "medico":
+            navigate("/medico", { replace: true });
+            break;
+          case "cajero":
+            navigate("/crear-turnos", { replace: true });
+            break;
+          default:
+            console.log("Rol no reconocido, redirigiendo a inicio.");
+            navigate("/inicio", { replace: true });
+            break;
+        }
+      } catch (error) {
+        console.error("Error al verificar el token:", error);
+        navigate("/inicio", { replace: true });
+      }
+    };
+
+    if (token) {
+      navigateToPage(token);
+    } else {
+      // Permitir acceso a las rutas públicas
+      if (!publicRoutes.includes(location.pathname)) {
+        navigate("/inicio", { replace: true });
       }
     }
-  }, []);
+  }, [location.pathname, navigate]);
 
   return(
     <AuthProvider>
