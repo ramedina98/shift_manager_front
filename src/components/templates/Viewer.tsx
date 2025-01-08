@@ -5,7 +5,11 @@ import DisplayTurnos from "../organisms/DisplayTurnos";
 import DisplayCitados from "../organisms/DisplayCitados";
 import DisplayAsignados from "../organisms/DisplayAsignado";
 
-const Viewer: React.FC = () => {
+interface ViewerProps {
+    changeDisplay: boolean;
+}
+
+const Viewer: React.FC<ViewerProps> = ({ changeDisplay }) => {
     const { fetchedShifts, newShiftMessage } = useShift();
 
     const [listaCitados, setListaCitados] = useState<ICitas[]>(fetchedShifts.citas);
@@ -29,18 +33,16 @@ const Viewer: React.FC = () => {
             className="p-6 bg-Dark_Blue rounded-md shadow-md mt-2 mb-4 flex flex-wrap justify-between items-start gap-4"
             style={{ width: 'clamp(210px, 90%, 1350px)', minHeight: '77vh' }}
         >
-            {/**TODO: Visualizador de turnos en espera*/}
-            <DisplayTurnos
-                data={listaTurnos}
-            />
-            {/**TODO: Visualizador de turnos citados*/}
-            <DisplayCitados
-                data={listaCitados}
-            />
-            {/**TODO: Visualizador de turnos en atención*/}
-            <DisplayAsignados
-                data={listaAsignados}
-            />
+            {changeDisplay ?
+            (
+                <DisplayAsignados data={listaAsignados} />
+            ) :
+            (
+                <>
+                    <DisplayTurnos data={listaTurnos} />
+                    <DisplayCitados data={listaCitados} />
+                </>
+            )}
         </div>
     )
 }

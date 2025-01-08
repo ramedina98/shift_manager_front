@@ -4,7 +4,12 @@ import { useAuth } from "../../contexts/AuthContext";
 import DisplayShiftInfo from "../organisms/DisplayShiftInfo";
 import { IAsignados } from "../../interfaces/IShift";
 
-const CurrentShiftPatientDoc: React.FC = () => {
+interface CurrentShiftProps {
+    startConsul: boolean;
+    setStartConsul: React.Dispatch<React.SetStateAction<boolean>>;
+}
+
+const CurrentShiftPatientDoc: React.FC<CurrentShiftProps> = ({ startConsul, setStartConsul }) => {
     const { currentShift } = useShift();
     const { consultorio } = useAuth();
     const patientData: IAsignados  | null = {
@@ -38,10 +43,11 @@ const CurrentShiftPatientDoc: React.FC = () => {
                     </h2>
                 </div>
                 {/**Aqui mostramos la información del paciente... */}
-                {/**TODO: cambiar esto y agregar la otra vista que se mostrara cuando no haya turnos... */}
                 {(currentShift !== null) && (
                     <DisplayShiftInfo
                         data={patientData}
+                        startConsul={startConsul}
+                        setStartConsul={setStartConsul}
                     />
                 )}
             </div>

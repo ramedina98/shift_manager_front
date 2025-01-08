@@ -30,17 +30,6 @@ const DisplayAsignados: React.FC<DisplayAsignadosProps> = ({data}) => {
                 id_asignacion: item.id_asignacion
             }));
 
-            let twoItems: IAsignados[] = [];
-            if(data.length > 3){
-                twoItems.push(cleanedData[0]);
-                twoItems.push(cleanedData[1]);
-                twoItems.push(cleanedData[2]);
-                twoItems.push(cleanedData[3]);
-
-                setInfo(twoItems);
-                return;
-            }
-
             setInfo(cleanedData);
         }
 
@@ -50,6 +39,7 @@ const DisplayAsignados: React.FC<DisplayAsignadosProps> = ({data}) => {
     return (
         <div
             className="flex flex-col justify-center items-center"
+            style={{ width: '100%'}}
         >
             <div
                 className="bg-Muted_Blue w-full mb-2 rounded-t-md py-2 text-center"
@@ -61,15 +51,15 @@ const DisplayAsignados: React.FC<DisplayAsignadosProps> = ({data}) => {
                 </h2>
             </div>
             <div
-                className="bg-Grayish_Blue p-3 flex flex-col justify-center items-center"
-                style={{ width: '580px', maxHeight: '410px', overflowY: 'hidden'}}
+                className="bg-Grayish_Blue p-3 flex flex-wrap gap-x-20 gap-y-4 justify-start items-start pl-9"
+                style={{ width: '100%'}}
             >
                 {info.map((item, index: number) => (
                     <AsignadosItemDisplay
-                        key={index}
-                        turno={item?.turno}
-                        num_consultorio={item?.consultorio}
-                    />
+                    key={index}
+                    turno={item?.turno}
+                    num_consultorio={item?.consultorio}
+                />
                 ))}
             </div>
         </div>

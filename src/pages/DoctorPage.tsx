@@ -13,6 +13,7 @@ import CurrentShiftPatientDoc from "../components/templates/CurrentShiftPatientD
 const DoctorPage: React.FC = () => {
     const [settings, setSettings] = useState<boolean>(false);
     const [office, setOffice] = useState<boolean>(false);
+    const [startConsul, setStartConsul] = useState<boolean>(false);
 
     const { shiftMessageError, shiftMessageSuccess } = useShift();
     const { errorMessage, successMessage } = useAuth();
@@ -68,8 +69,10 @@ const DoctorPage: React.FC = () => {
                     setSettings={setSettings}
                     office={office}
                     setOffice={setOffice}
+                    startConsul={startConsul}
+                    setStartConsul={setStartConsul}
                 />
-                <CurrentShiftPatientDoc />
+                <CurrentShiftPatientDoc startConsul={startConsul} setStartConsul={setStartConsul} />
             </main>
             <Footer />
         </div>

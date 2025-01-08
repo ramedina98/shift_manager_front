@@ -7,9 +7,11 @@ import Button from "../atoms/Button";
 
 interface DisplayShiftInfoProps {
     data: IAsignados;
+    startConsul: boolean;
+    setStartConsul: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const DisplayShiftInfo: React.FC<DisplayShiftInfoProps> = ({data}) => {
+const DisplayShiftInfo: React.FC<DisplayShiftInfoProps> = ({data, startConsul, setStartConsul}) => {
     const [time, setTime] = useState<number>(0);
     const intervalIdRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -92,6 +94,7 @@ const DisplayShiftInfo: React.FC<DisplayShiftInfoProps> = ({data}) => {
         switch(type){
             case 'iniciar':
                 startCounter(setTime);
+                setStartConsul(!startConsul);
             break;
         }
     }

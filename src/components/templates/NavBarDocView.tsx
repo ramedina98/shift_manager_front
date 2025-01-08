@@ -10,9 +10,11 @@ interface INavBarDocView {
     setSettings: React.Dispatch<React.SetStateAction<boolean>>;
     office: boolean;
     setOffice: React.Dispatch<React.SetStateAction<boolean>>;
+    startConsul: boolean;
+    setStartConsul: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const NavBarDocView: React.FC<INavBarDocView> = ({settings, setSettings, office, setOffice}) => {
+const NavBarDocView: React.FC<INavBarDocView> = ({settings, setSettings, office, setOffice, startConsul, setStartConsul}) => {
 
     const { logout, consultorio, status } = useAuth();
     const { nextShift, finishShift, currentShift, setCurrentShift, setShiftsMessageError, consultationDate } = useShift();
@@ -37,7 +39,7 @@ const NavBarDocView: React.FC<INavBarDocView> = ({settings, setSettings, office,
                 consultorio: consultorio,
                 turno: currentShift?.turno,
                 nombre_paciente: `${currentShift?.nombre_paciente} ${currentShift?.apellido_paciente}`,
-                visita: currentShift?.visita,
+                visita: startConsul ? currentShift?.visita : "cancelado",
                 fecha_hora: consultationDate,
             }
         }
@@ -62,9 +64,18 @@ const NavBarDocView: React.FC<INavBarDocView> = ({settings, setSettings, office,
             break;
             case "next":
                 await nextShift();
+                if(startConsul){
+                    setStartConsul(false);
+                }
             break;
             // this case handle the process of go to the visualizer tample...
             case "finish":
+                if(!startConsul && currentShift){
+                    const isEnded = confirm("¿Esta seguro de cancelar el turno?");
+                    if(!isEnded){
+                        return;
+                    }
+                }
                 await finishTheCurrentShift();
                 setCurrentShift(null);
             break;
