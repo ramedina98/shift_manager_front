@@ -11,7 +11,7 @@ const URL = import.meta.env.VITE_URL_PLUGIN;
 const SelectorPrinter: React.FC<ISelectorPrinterProps> = ({setNamePrinter}) => {
     const { setShiftsMessageError } = useShift();
 
-    const [impresoras, setImpresoras] = useState<string[] | null>(null);
+    const [impresoras, setImpresoras] = useState<string[]>([]);
 
     // style btn...
     const buttonStyle = 'text-white tracking-wider font-medium text-lg py-2 rounded-md';
@@ -20,24 +20,21 @@ const SelectorPrinter: React.FC<ISelectorPrinterProps> = ({setNamePrinter}) => {
         const searchPrinter = async () => {
             try {
                 const response = await axios.get(`${URL}/impresoras`);
-
-                if(response.status !== 200){
-                    console.log('Algo salio mal.');
-                    setShiftsMessageError(null);
-                    setTimeout(() => {
-                        setShiftsMessageError('No se encontro impresora disponible.');
-                        setImpresoras(null);
-                    }, 1000);
-                    setShiftsMessageError(null);
-                } else{
+                if (response.status !== 200) {
+                    console.log("Algo salió mal.");
+                    setShiftsMessageError("No se encontró impresora disponible.");
+                    setImpresoras([]);
+                } else {
                     setImpresoras(response.data);
                 }
             } catch (error: any) {
                 console.error(`Error plugin 8080:: ${error.message}`);
                 setShiftsMessageError(`Error plugin 8080: ${error.message}`);
             }
-        }
+        };
         searchPrinter();
+
+        return () => setShiftsMessageError(null);
     }, []);
 
     const handlerSelectPrinter = (event: React.ChangeEvent<HTMLSelectElement>): void => {
@@ -51,21 +48,12 @@ const SelectorPrinter: React.FC<ISelectorPrinterProps> = ({setNamePrinter}) => {
             style={{width: '160px'}}
             onChange={handlerSelectPrinter}
         >
-            <option
-                value={'0'}
-            >
-                Impresora
-            </option>
-            {(impresoras) && (
-                impresoras.map((impresora, index) => (
-                    <option
-                        key={index}
-                        value={impresora}
-                    >
-                        {impresora}
-                    </option>
-                ))
-            )};
+            <option value="0">Impresora</option>
+            {impresoras.map((impresora) => (
+                <option key={impresora} value={impresora}>
+                    {impresora}
+                </option>
+            ))}
         </select>
     );
 }
