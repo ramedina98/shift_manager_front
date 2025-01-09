@@ -3,10 +3,11 @@ import NavItem from "../molecules/NavItem";
 import { faForward, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
 
 interface NavBarProps {
+    activeProccess?: boolean;
     clickHandler(btn: string): void;
 }
 
-const NavListControlsDoc: React.FC<NavBarProps> = ({ clickHandler }) => {
+const NavListControlsDoc: React.FC<NavBarProps> = ({ activeProccess, clickHandler }) => {
 
     // style settings...
     const classSetting: string = "text-Dark_Bl cursor-pointer hover:shadow-sm rounded-md transition-all hover:bg-Muted_Blue hover:text-White w-full h-20 flex flex-col justify-center items-center";
@@ -28,19 +29,19 @@ const NavListControlsDoc: React.FC<NavBarProps> = ({ clickHandler }) => {
             </div>
             <NavItem
                 icon={faForward}
-                label="Tomar Turno"
+                label={activeProccess ? "En proceso" : "Tomar Turno"}
                 className={classSetting}
                 iconClassName={iconClassSetting}
                 textClassName={textClassSetting}
-                onClick={() => clickHandler('next')}
+                onClick={activeProccess ? () => console.log("Espere proceso") : () => clickHandler('next')}
             />
             <NavItem
                 icon={faCircleCheck}
-                label="Finalizar Turno"
+                label={"Finalizar Turno"}
                 className={classSetting}
                 iconClassName={iconClassSetting}
                 textClassName={textClassSetting}
-                onClick={() => clickHandler('finish')}
+                onClick={activeProccess ? () => console.log("En proceso") : () => clickHandler('finish')}
             />
         </ul>
     );

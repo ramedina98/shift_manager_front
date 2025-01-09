@@ -222,6 +222,8 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             return;
         }
 
+        setIsSubmitting(true);
+
         try {
             const {status, message, data}: {status: number, message?: string, data?: IAsignados} = await nextPatient(token);
 
@@ -239,6 +241,8 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             }
         } catch (error: any) {
             console.error("fetching fallido:" + error.message);
+        } finally {
+            setIsSubmitting(false);
         }
     }
 
@@ -251,6 +255,8 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             setShiftsMessageError('No hay turno actual.');
             return;
         }
+
+        setIsSubmitting(true);
 
         try {
             const {status, message}: {status: number, message?: string, data?: any} = await finishConsultation(token, finishConsultationData);
@@ -267,6 +273,8 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             }
         } catch (error: any) {
             console.error("fetching fallido:" + error.message);
+        } finally {
+            setIsSubmitting(false);
         }
     }
 

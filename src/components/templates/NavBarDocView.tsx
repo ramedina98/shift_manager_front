@@ -17,7 +17,7 @@ interface INavBarDocView {
 const NavBarDocView: React.FC<INavBarDocView> = ({settings, setSettings, office, setOffice, startConsul, setStartConsul}) => {
 
     const { logout, consultorio, status } = useAuth();
-    const { nextShift, finishShift, currentShift, setCurrentShift, setShiftsMessageError, consultationDate } = useShift();
+    const { nextShift, finishShift, currentShift, setCurrentShift, setShiftsMessageError, consultationDate, isSubmitting } = useShift();
 
     // This function handle the process of finish the currentShift...
     const finishTheCurrentShift = async (): Promise<void> => {
@@ -64,7 +64,8 @@ const NavBarDocView: React.FC<INavBarDocView> = ({settings, setSettings, office,
             break;
             case "next":
                 await nextShift();
-                if(startConsul){
+                if(startConsul && !currentShift){
+                    console.log("Hola")
                     setStartConsul(false);
                 }
             break;
@@ -100,8 +101,8 @@ const NavBarDocView: React.FC<INavBarDocView> = ({settings, setSettings, office,
                     {status ? 'Activo' : 'Adios'}
                 </span>
             </div>
-            <NavListDocView clickHandler={handleTheclickedLi}/>
-            <NavListControlsDoc clickHandler={handleTheclickedLi}/>
+            <NavListDocView clickHandler={handleTheclickedLi} />
+            <NavListControlsDoc clickHandler={handleTheclickedLi} activeProccess={isSubmitting} />
         </div>
     );
 }
