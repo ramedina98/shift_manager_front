@@ -15,115 +15,61 @@ const configuraciones = (data: IShiftData, impresora: string) => {
                 "argumentos": [1]
             },{
                 "nombre": "EstablecerTamañoFuente",
-                "argumentos": [4, 4]
+                "argumentos": [2, 2]
             },{
                 "nombre": "EscribirTexto",
                 "argumentos": ["Clinica San Jose\nDe los ojos"]
             },{
-                "nombre": "Feed",
-                "argumentos": [2]
-            }, {
-                "nombre": "EstablecerEnfatizado",
-                "argumentos": [true]
+                "nombre": "EstablecerTamañoFuente",
+                "argumentos": [1, 1]
             },{
                 "nombre": "EscribirTexto",
-                "argumentos": ["-------------------------"]
-            }, {
-                "nombre": "EstablecerEnfatizado",
-                "argumentos": [false]
-            }, {
-                "nombre": "EstablecerTamañoFuente",
-                "argumentos": [2, 2]
-            }, {
-                "nombre": "Feed",
-                "argumentos": [2]
+                "argumentos": ["---------------------"]
             }, {
                 "nombre": "EscribirTexto",
                 "argumentos": ["Bienvenido"]
             }, {
                 "nombre": "EstablecerTamañoFuente",
-                "argumentos": [3, 3]
+                "argumentos": [0, 0]
             }, {
                 "nombre": "Feed",
-                "argumentos": [2]
+                "argumentos": [1]
             }, {
                 "nombre": "EscribirTexto",
                 "argumentos": [data.paciente_nombre]
             }, {
-                "nombre": "EstablecerTamañoFuente",
-                "argumentos": [2, 2]
-            }, {
                 "nombre": "Feed",
-                "argumentos": [2]
+                "argumentos": [1]
             } ,{
                 "nombre": "EscribirTexto",
                 "argumentos": ["Su turno es"]
             }, {
-                "nombre": "EstablecerEnfatizado",
-                "argumentos": [true]
-            }, {
-                "nombre": "Feed",
-                "argumentos": [2]
-            }, {
+                "nombre": "EstablecerTamañoFuente",
+                "argumentos": [1, 1]
+            },{
                 "nombre": "EscribirTexto",
-                "argumentos": ["-------------------------"]
-            }, {
-                "nombre": "EstablecerEnfatizado",
-                "argumentos": [false]
+                "argumentos": ["---------------------"]
             }, {
                 "nombre": "EstablecerTamañoFuente",
-                "argumentos": [4, 4]
-            }, {
-                "nombre": "Feed",
-                "argumentos": [2]
-            }, {
+                "argumentos": [0, 0]
+            },{
                 "nombre": "EscribirTexto",
                 "argumentos": [data.turno]
             }, {
-                "nombre": "EstablecerEnfatizado",
-                "argumentos": [true]
-            }, {
-                "nombre": "Feed",
-                "argumentos": [2]
-            }, {
-                "nombre": "EscribirTexto",
-                "argumentos": ["-------------------------"]
-            }, {
-                "nombre": "EstablecerEnfatizado",
-                "argumentos": [false]
-            }, {
                 "nombre": "EstablecerTamañoFuente",
-                "argumentos": [2, 2]
-            }, {
-                "nombre": "Feed",
-                "argumentos": [2]
+                "argumentos": [1, 1]
+            },{
+                "nombre": "EscribirTexto",
+                "argumentos": ["---------------------"]
             }, {
                 "nombre": "EscribirTexto",
                 "argumentos": ["Favor de esperar su\nturno en la\nsala de espera"]
             }, {
-                "nombre": "EstablecerEnfatizado",
-                "argumentos": [true]
-            },{
-                "nombre": "Feed",
-                "argumentos": [2]
-            }, {
                 "nombre": "EscribirTexto",
-                "argumentos": ["-------------------------"]
-            }, {
-                "nombre": "EstablecerEnfatizado",
-                "argumentos": [false]
-            }, {
-                "nombre": "EstablecerTamañoFuente",
-                "argumentos": [2, 2]
-            }, {
-                "nombre": "Feed",
-                "argumentos": [2]
+                "argumentos": ["---------------------"]
             }, {
                 "nombre": "EscribirTexto",
                 "argumentos": [`Gracias por su visita ${data.datatime}`]
-            },{
-                "nombre": "Feed",
-                "argumentos": [2]
             }, {
                 "nombre": "Beep",
                 "argumentos": [1, 2]
