@@ -1,5 +1,6 @@
 [build]
-  publish = "build" # Cambia esto al directorio de salida de tu build (por ejemplo, dist o public)
+  publish = "dist" # Cambia esto según tu carpeta de salida, como build o public
+  command = "npm run build" # Comando para construir la aplicación
 
 [[redirects]]
   from = "/*"
