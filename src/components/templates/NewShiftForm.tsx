@@ -135,7 +135,7 @@ const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
 
         switch(type){
             case 'nuevo':
-                if(newShifInfo.nombre_paciente === "" || newShifInfo.apellido_doc === ""){
+                if(newShifInfo.nombre_paciente === "" || newShifInfo.apellido_paciente === ""){
                     setShiftsMessageError("Ingrese los datos del paciente.");
                     setTimeout(() => { setShiftsMessageError(null) }, 2000);
                     return;
