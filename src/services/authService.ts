@@ -172,10 +172,12 @@ const login = async (user_name: string, password: string, num_consultorio: numbe
 
             if(status === 404){
                 throw new Error("Usuario no encontrado. Por favor verifique sus credenciales.")
-            } else if(status === 401){
+            } else if(status === 402){
                 throw new Error("Contraseña incorrecta. Intente de nuevo.");
-            } else if(status === 400){
+            } else if(status === 401){
                 throw new Error("Consultorio ocupado.");
+            } else if(status === 400){
+                throw new Error("Seleccione un consultorio valido.");
             }
         }
 

@@ -8,7 +8,7 @@ import Button from "../atoms/Button";
 
 const LoginForm: React.FC = () => {
     const [verPass, setVerPass] = useState<boolean>(false);
-    const [loginInfo, setLoginInfo] = useState({    username: '', password: '', consultorio: 1});
+    const [loginInfo, setLoginInfo] = useState({    username: '', password: '', consultorio: 0});
     const [userLabel, setUserLabel] = useState('Nombre de usuario');
     const [passwordLabel, setPasswordLabel] = useState('Contraseña');
     const [consultorioLabel, _setConsultorioLabel] = useState('Medicos: Ingresar Num. consultorio');
