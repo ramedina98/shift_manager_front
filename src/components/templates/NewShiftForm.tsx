@@ -16,7 +16,7 @@ interface NewShiftFormProps {
 }
 
 const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
-    const { createNewShift, doctors , turno, isSubmitting } = useShift();
+    const { createNewShift, doctors , turno, isSubmitting, setShiftsMessageError } = useShift();
 
     const [citado, setCitado] = useState<boolean>(false);
     const [horaCita, setHoraCita] = useState<string>();
@@ -135,6 +135,12 @@ const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
 
         switch(type){
             case 'nuevo':
+                if(newShifInfo.nombre_paciente === "" || newShifInfo.apellido_doc === ""){
+                    setShiftsMessageError("Ingrese los datos del paciente.");
+                    setTimeout(() => { setShiftsMessageError(null) }, 2000);
+                    return;
+                }
+
                 if(citado === true){
                     const data: IPacienteCitado = {
                         nombre_paciente: newShifInfo.nombre_paciente,
