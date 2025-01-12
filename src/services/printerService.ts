@@ -63,7 +63,7 @@ const configuraciones = (data: IShiftData, impresora: string) => {
                 "argumentos": ["---------------------\n"]
             }, {
                 "nombre": "EscribirTexto",
-                "argumentos": [`Gracias por su visita ${data.datatime}`]
+                "argumentos": [`Gracias por su visita\n${data.datatime}`]
             }, {
                 "nombre": "Beep",
                 "argumentos": [1, 2]
