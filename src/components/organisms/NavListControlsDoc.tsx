@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import NavItem from "../molecules/NavItem";
+import React, { useEffect, useState } from "react";
 import { faForward, faCircleCheck } from "@fortawesome/free-solid-svg-icons";
+import { useShift } from "../../contexts/ShiftContext";
+import NavItem from "../molecules/NavItem";
 
 interface NavBarProps {
     activeProccess?: boolean;
@@ -10,6 +11,8 @@ interface NavBarProps {
 }
 
 const NavListControlsDoc: React.FC<NavBarProps> = ({ schActiveProcess, activeProccess, fnActiveProcess, clickHandler }) => {
+    const { numPatientsSch, numPatients, newShiftMessage } = useShift();
+
     const [isSpecialist, setIsSpecialist] = useState<boolean>(false);
 
     // style settings...
@@ -18,6 +21,9 @@ const NavListControlsDoc: React.FC<NavBarProps> = ({ schActiveProcess, activePro
     const textClassSetting: string = "text-md tracking-wider";
 
 
+    useEffect(() => {
+        numPatients();
+    }, [fnActiveProcess, newShiftMessage]);
 
     return (
         <ul
@@ -48,16 +54,16 @@ const NavListControlsDoc: React.FC<NavBarProps> = ({ schActiveProcess, activePro
                     className={classSetting}
                     iconClassName={iconClassSetting}
                     textClassName={textClassSetting}
-                    onClick={activeProccess ? () => console.log("Espere proceso") : () => clickHandler('next')}
+                    onClick={(activeProccess || schActiveProcess) ? () => console.log("Espere general") : () => clickHandler('next')}
                 />
             )}
             <NavItem
                 icon={faForward}
-                label={schActiveProcess ? "En proceso" : "Turno Citado"}
+                label={schActiveProcess ? "En proceso" : `Turnos Citados: ${numPatientsSch ? numPatientsSch : "0"}`}
                 className={classSetting}
                 iconClassName={iconClassSetting}
                 textClassName={textClassSetting}
-                onClick={schActiveProcess ? () => console.log("Espere proceso") : () => clickHandler('citado')}
+                onClick={(schActiveProcess || activeProccess) ? () => console.log("Espere citados") : () => clickHandler('citado')}
             />
             <NavItem
                 icon={faCircleCheck}

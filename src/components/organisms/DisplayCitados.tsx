@@ -39,7 +39,7 @@ const DisplayCitados: React.FC<DisplayCitasProps> = ({data}) => {
                 });
 
             if (cleanedData.length > 1) {
-                const twoItems = cleanedData.slice(0, 2);
+                const twoItems = cleanedData.slice(0, 4);
                 setInfo(twoItems);
                 return;
             }
@@ -75,7 +75,7 @@ const DisplayCitados: React.FC<DisplayCitasProps> = ({data}) => {
             </div>
             <div
                 className="bg-Grayish_Blue p-3 flex flex-col justify-center items-center"
-                style={{ width: '590px', maxHeight: '480px', overflowY: 'hidden'}}
+                style={{ width: '590px', maxHeight: '100vh', overflowY: 'hidden'}}
             >
                 {info.map((cita: ICitas, index: number) => (
                     <CitasItemsDisplay

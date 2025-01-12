@@ -10,6 +10,7 @@ export interface IShiftContext {
     doctors: () => Promise<IDoctosList[] | undefined>
     increasesTheNewShift: (turno: string | null) => void;
     fetchLastShift: () => Promise<void>;
+    numPatients: () => Promise<void>;
     // state variables...
     turno: string;
     shiftMessageError: string | null;
@@ -26,6 +27,8 @@ export interface IShiftContext {
     setSchedulePatientProcess: React.Dispatch<React.SetStateAction<boolean>>;
     finishingShift: boolean;
     setFinishingShift: React.Dispatch<React.SetStateAction<boolean>>;
+    numPatientsSch: string | null;
+    setNumPatientsSch: React.Dispatch<React.SetStateAction<string | null>>;
 }
 
 export interface ICitas {

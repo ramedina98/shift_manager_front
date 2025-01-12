@@ -16,12 +16,18 @@ const DisplayTurnos: React.FC<DisplayTurnosProps> = ({data}) => {
         }
 
         const cleanDataArray = (): void => {
-            if(data.length > 3){
+            if(data.length > 10){
                 let twoItems: IConsultas[] = [];
                 twoItems.push(data[0]);
                 twoItems.push(data[1]);
                 twoItems.push(data[2]);
                 twoItems.push(data[3]);
+                twoItems.push(data[4]);
+                twoItems.push(data[5]);
+                twoItems.push(data[6]);
+                twoItems.push(data[7]);
+                twoItems.push(data[8]);
+                twoItems.push(data[9]);
 
                 setInfo(twoItems);
                 return;
@@ -48,7 +54,7 @@ const DisplayTurnos: React.FC<DisplayTurnosProps> = ({data}) => {
             </div>
             <div
                 className="bg-Grayish_Blue p-3 flex flex-col justify-center items-center"
-                style={{ width: '580px', maxHeight: '480px', overflowY: 'hidden'}}
+                style={{ width: '580px', maxHeight: '100vh', overflowY: 'hidden'}}
             >
                 {info.map((turno: IConsultas, index: number) => (
                     <TurnosItemDisplay

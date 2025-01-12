@@ -139,7 +139,6 @@ const DisplayShiftInfo: React.FC<DisplayShiftInfoProps> = ({data, startConsul, s
                 inputId={'turno'}
                 value={data?.turno}
             />
-            {/**TODO: desarrollar bien las funciones necesarias para estas dos ultimas secciones... */}
             <LabelOutput
                 icon={faClock}
                 iconClassName={labelOutputStyles.iconClass}

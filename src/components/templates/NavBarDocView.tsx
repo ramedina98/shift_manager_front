@@ -95,7 +95,7 @@ const NavBarDocView: React.FC<INavBarDocView> = ({settings, setSettings, office,
     return (
         <div
             className="bg-Grayish_Blue flex flex-col justify-start items-center"
-            style={{ width: '215px', minHeight: '90vh'}}
+            style={{ width: '230px', minHeight: '90vh'}}
         >
             <div
                 className="w-full py-8 my-8 text-center text-3xl tracking-wider font-semibold text-White"

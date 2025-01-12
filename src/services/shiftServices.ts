@@ -5,8 +5,8 @@
  * module...
  */
 import { IAsignados, IfinishConsultationData, IPacienteCitado, IPacienteNoId, IShiftData, IShifts } from "../interfaces/IShift";
-import axios from "axios";
 import { IDoctosList } from "../interfaces/IUser";
+import axios from "axios";
 
 const api_url =  import.meta.env.VITE_API_URL_SHIFT;
 const api_url_user =  import.meta.env.VITE_API_URL_USER;
@@ -271,6 +271,42 @@ const listOfDoctors = async (token: string | null): Promise<{ status: number, me
         return { status, message: error.response.data.error };
     }
 }
+
+// get number of schedule patients...
+const numOfSchPatients = async (token: string | null): Promise<{ status: number, message?: string, data?: string }> => {
+    if(token === null){
+        return {
+            status: 400,
+            message: 'Token no proporcionado.'
+        }
+    }
+
+    try {
+        const response = await axios.get(`${api_url}/num-schpatients/`,
+            {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            }
+        });
+
+        if(response.status === 404){
+            return {
+                status: 404,
+                message: response.data.message
+            }
+        }
+
+        return {
+            status: 200,
+            message: response.data.message,
+            data: response.data.data
+        }
+    } catch (error: any) {
+        const status = error.response?.status || 500;
+        return { status, message: error.response.data.error };
+    }
+}
+
 export {
     fetchingShifts,
     currentPatient,
@@ -280,5 +316,6 @@ export {
     newPatient,
     updateNumOffice,
     listOfDoctors,
-    fetchLastShiftService
+    fetchLastShiftService,
+    numOfSchPatients
 };

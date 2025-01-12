@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { faUser, faUserEdit, faFileMedical, faCalendarCheck, faStethoscope, faClock } from "@fortawesome/free-solid-svg-icons";
+import { faUser, faUserEdit, faFileMedical, faCalendarCheck, faStethoscope } from "@fortawesome/free-solid-svg-icons";
 import { useShift } from "../../contexts/ShiftContext";
 import { IPacienteCitado, IPacienteNoId, IShiftData } from "../../interfaces/IShift";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -19,7 +19,7 @@ const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
     const { createNewShift, doctors , turno, isSubmitting, setShiftsMessageError } = useShift();
 
     const [citado, setCitado] = useState<boolean>(false);
-    const [horaCita, setHoraCita] = useState<string>();
+    const [_horaCita, setHoraCita] = useState<string>();
     const [selectDoctorsInfo, setSelectDoctorsInfo] = useState<IDoctosList[] | undefined>(undefined);
     const [reImprecionData, setReImprecionData] = useState<IShiftData>({paciente_nombre: '', turno: turno, datatime: ''});
     const [newShifInfo, setNewShifInfo] = useState<IPacienteCitado>({
@@ -305,20 +305,6 @@ const NewShiftForm: React.FC<NewShiftFormProps> = ({namePrinter}) => {
                                 ))}
                             </select>
                         </div>
-                        {/**Password*/}
-                        <LabelInput
-                            icon={faClock}
-                            iconClassName={inputsStyles.iconStyle}
-                            labelText={"Hora de la cita"}
-                            labelClassname={inputsStyles.labelStyle}
-                            inputClassname={inputsStyles.inputStyle}
-                            inputId={'horaCita'}
-                            inputName={'hora_cita'}
-                            inputMax={100}
-                            inputType={'time'}
-                            value={horaCita || ''}
-                            inputHanler={inputsHandler}
-                        />
                     </div>
                 )}
                 {/**Btns */}

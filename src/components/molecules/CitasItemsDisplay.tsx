@@ -57,7 +57,7 @@ const CitasItemsDisplay: React.FC<CitasItemsDisplayProps> = ({
             <LabelOutput
                 icon={faClock}
                 iconClassName={styles.icon}
-                labelText={"Hora de la cita"}
+                labelText={"Hora de creación"}
                 labelClassname={styles.label}
                 inputId="hora"
                 value={hora}

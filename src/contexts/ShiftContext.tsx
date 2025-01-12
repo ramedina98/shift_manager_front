@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { fetchingShifts, currentPatient, schedulePatient, nextPatient, finishConsultation, newPatient, updateNumOffice, listOfDoctors, fetchLastShiftService } from "../services/shiftServices";
+import { fetchingShifts, currentPatient, schedulePatient, nextPatient, finishConsultation, newPatient, updateNumOffice, listOfDoctors, fetchLastShiftService, numOfSchPatients } from "../services/shiftServices";
 import { useAuth } from "./AuthContext";
 import { IAsignados, IfinishConsultationData, IPacienteCitado, IPacienteNoId, IShiftContext, IShifts, IShiftData } from "../interfaces/IShift";
 import useWebSocket from "../hooks/useWebSocket";
@@ -24,6 +24,7 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
     const [turno, setTurno] = useState<string>("A0000");
     const [iterator, setItarator] = useState<number>(0);
     const [newShiftMessage, setNewShiftMessage] = useState<{title : string, message: string, code: number} | null>(null);
+    const [numPatientsSch, setNumPatientsSch] = useState<string | null>(null);
     //const [ws, setWs] = useState<WebSocket | null>(null);
     const { token, setErrorMessage, setSuccessMessage, setConsultorio } = useAuth();
 
@@ -121,6 +122,22 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             } else if(status === 200){
                 if(data) {
                     increasesTheNewShift(data);
+                }
+            }
+        } catch (error: any) {
+            console.error("fetching fallido:" + error.message);
+        }
+    }
+
+    const numPatients = async (): Promise<void> => {
+        try {
+            const {status, message, data}: {status: number, message?: string, data?: string} = await numOfSchPatients(token);
+
+            if(status === 404){
+                console.log(message);
+            } else if(status === 200){
+                if(data) {
+                    setNumPatientsSch(data);
                 }
             }
         } catch (error: any) {
@@ -388,7 +405,10 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             schedulePatientProcess,
             setSchedulePatientProcess,
             finishingShift,
-            setFinishingShift
+            setFinishingShift,
+            numPatientsSch,
+            setNumPatientsSch,
+            numPatients
         }}>
             {children}
         </ShiftContext.Provider>
