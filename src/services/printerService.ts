@@ -18,19 +18,16 @@ const configuraciones = (data: IShiftData, impresora: string) => {
                 "argumentos": [2, 2]
             },{
                 "nombre": "EscribirTexto",
-                "argumentos": ["Clinica San Jose\nDe los ojos"]
+                "argumentos": ["Clinica San Jose\nDe los ojos\n"]
             },{
                 "nombre": "EstablecerTamañoFuente",
                 "argumentos": [1, 1]
             },{
                 "nombre": "EscribirTexto",
-                "argumentos": ["---------------------"]
+                "argumentos": ["---------------------\n"]
             }, {
                 "nombre": "EscribirTexto",
-                "argumentos": ["Bienvenido"]
-            }, {
-                "nombre": "EstablecerTamañoFuente",
-                "argumentos": [0, 0]
+                "argumentos": ["Bienvenido\n"]
             }, {
                 "nombre": "Feed",
                 "argumentos": [1]
@@ -42,16 +39,13 @@ const configuraciones = (data: IShiftData, impresora: string) => {
                 "argumentos": [1]
             } ,{
                 "nombre": "EscribirTexto",
-                "argumentos": ["Su turno es"]
+                "argumentos": ["Su turno es\n"]
             }, {
-                "nombre": "EstablecerTamañoFuente",
-                "argumentos": [1, 1]
-            },{
                 "nombre": "EscribirTexto",
-                "argumentos": ["---------------------"]
+                "argumentos": ["---------------------\n"]
             }, {
                 "nombre": "EstablecerTamañoFuente",
-                "argumentos": [0, 0]
+                "argumentos": [2, 2]
             },{
                 "nombre": "EscribirTexto",
                 "argumentos": [data.turno]
@@ -60,13 +54,13 @@ const configuraciones = (data: IShiftData, impresora: string) => {
                 "argumentos": [1, 1]
             },{
                 "nombre": "EscribirTexto",
-                "argumentos": ["---------------------"]
+                "argumentos": ["\n---------------------\n"]
             }, {
                 "nombre": "EscribirTexto",
-                "argumentos": ["Favor de esperar su\nturno en la\nsala de espera"]
+                "argumentos": ["Favor de esperar su\nturno en la\nsala de espera\n"]
             }, {
                 "nombre": "EscribirTexto",
-                "argumentos": ["---------------------"]
+                "argumentos": ["---------------------\n"]
             }, {
                 "nombre": "EscribirTexto",
                 "argumentos": [`Gracias por su visita ${data.datatime}`]
