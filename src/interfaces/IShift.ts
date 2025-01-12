@@ -3,6 +3,7 @@ export interface IShiftContext {
     fetchedShifts: IShifts;
     setFetchedShifts: React.Dispatch<React.SetStateAction<IShifts>>;
     createNewShift: (data: any, namePrinter: string | null) => Promise<void>;
+    nextSchedulePatient: () => Promise<void>;
     nextShift: () => Promise<void>;
     finishShift: (finishConsultationData: IfinishConsultationData) => Promise<void>;
     updateOfficeInfo: (num: number) => Promise<void>;
@@ -21,6 +22,10 @@ export interface IShiftContext {
     newShiftMessage: {title: string, message: string, code: number} | null;
     isSubmitting: boolean;
     setIsSubmitting: React.Dispatch<React.SetStateAction<boolean>>;
+    schedulePatientProcess: boolean;
+    setSchedulePatientProcess: React.Dispatch<React.SetStateAction<boolean>>;
+    finishingShift: boolean;
+    setFinishingShift: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export interface ICitas {

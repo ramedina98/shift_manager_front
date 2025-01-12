@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from "react";
-import { fetchingShifts, currentPatient, nextPatient, finishConsultation, newPatient, updateNumOffice, listOfDoctors, fetchLastShiftService } from "../services/shiftServices";
+import { fetchingShifts, currentPatient, schedulePatient, nextPatient, finishConsultation, newPatient, updateNumOffice, listOfDoctors, fetchLastShiftService } from "../services/shiftServices";
 import { useAuth } from "./AuthContext";
 import { IAsignados, IfinishConsultationData, IPacienteCitado, IPacienteNoId, IShiftContext, IShifts, IShiftData } from "../interfaces/IShift";
 import useWebSocket from "../hooks/useWebSocket";
@@ -15,6 +15,8 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
     const [fetchedShifts, setFetchedShifts] = useState<IShifts>({citas: [], consultas: [], asignados: []});
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const [schedulePatientProcess, setSchedulePatientProcess] = useState(false);
+    const [finishingShift, setFinishingShift] = useState(false);
     const [currentShift, setCurrentShift] = useState<IAsignados | null>(null);
     const [shiftMessageError, setShiftsMessageError] = useState<string | null>(null);
     const [shiftMessageSuccess, setShiftsMessageSuccess] = useState<string | null>(null);
@@ -211,8 +213,48 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         await sendingDataNewShift(patientData, namePrinter);
     }
 
-    // This function helps me to handle the process of assign a new shift...
-    // This process works just when the client click a button...
+    /**
+     * This function helps me to handle the process of assign a new schedule patient...
+     */
+    const nextSchedulePatient = async (): Promise<void> => {
+        setShiftsMessageError(null);
+        setShiftsMessageSuccess(null);
+
+        if(currentShift !== null){
+            setShiftsMessageError('Ya hay un turno, primero terminelo.');
+            return;
+        }
+
+        setSchedulePatientProcess(true);
+
+        try {
+            const {status, message, data}: {status: number, message?: string, data?: IAsignados} = await schedulePatient(token);
+
+            // handle the error status...
+            if(status !== 200){
+                if(message){
+                    setShiftsMessageError(message);
+                }
+            } else if(status === 200){
+                if(data && message){
+                    setCurrentShift(data);
+                    setShiftsMessageSuccess(message);
+                    setConsultationDate(new Date());
+                }
+            }
+        } catch (error: any) {
+            console.error("fetching fallido:" + error.message);
+        } finally {
+            setSchedulePatientProcess(false);
+        }
+    }
+
+    /**
+     * This function helps me to handle the process of assign a new shift.
+     * This process works just when the client click a button...
+     *
+     * This is for patients that are not scheduled...
+     */
     const nextShift = async (): Promise<void> => {
         setShiftsMessageError(null);
         setShiftsMessageSuccess(null);
@@ -256,7 +298,7 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             return;
         }
 
-        setIsSubmitting(true);
+        setFinishingShift(true);
 
         try {
             const {status, message}: {status: number, message?: string, data?: any} = await finishConsultation(token, finishConsultationData);
@@ -274,7 +316,7 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
         } catch (error: any) {
             console.error("fetching fallido:" + error.message);
         } finally {
-            setIsSubmitting(false);
+            setFinishingShift(false);
         }
     }
 
@@ -325,6 +367,7 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             fetchedShifts,
             setFetchedShifts,
             createNewShift,
+            nextSchedulePatient,
             nextShift,
             finishShift,
             shiftMessageError,
@@ -341,7 +384,11 @@ export const ShiftProvider: React.FC<{ children: React.ReactNode }> = ({ childre
             newShiftMessage,
             fetchLastShift,
             isSubmitting,
-            setIsSubmitting
+            setIsSubmitting,
+            schedulePatientProcess,
+            setSchedulePatientProcess,
+            finishingShift,
+            setFinishingShift
         }}>
             {children}
         </ShiftContext.Provider>

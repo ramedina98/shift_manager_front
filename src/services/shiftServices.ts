@@ -102,6 +102,39 @@ const newPatient = async (patientData: IPacienteNoId | IPacienteCitado): Promise
     }
 }
 
+// This service is for assign a new schedule patient clciking a button...
+const schedulePatient = async (token: string | null): Promise<{status: number, message?: string, data?: IAsignados}> => {
+    // check of the token was provieded...
+    if(token === null){
+        return {
+            status: 400,
+            message: 'Token no proporcionado.'
+        }
+    }
+
+    try {
+        // fetch data...
+        const response = await axios.post(`${api_url}/schedule-patient/`,
+            {},
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                }
+            }
+        );
+
+        const data: IAsignados = response.data.shift;
+        return {
+            status: 200,
+            message: `Turno asignado ${data.turno}, con ${data.nombre_paciente} ${data.apellido_paciente}`,
+            data: data
+        }
+    } catch (error: any) {
+        const status = error.response?.status || 500;
+        return { status, message: error.response.data.message };
+    }
+}
+
 // this services is for assigne a new patient clicking a button...
 const nextPatient = async (token: string | null): Promise<{ status: number, message?: string, data?: IAsignados }> => {
     // check if the token was provided...
@@ -238,4 +271,14 @@ const listOfDoctors = async (token: string | null): Promise<{ status: number, me
         return { status, message: error.response.data.error };
     }
 }
-export { fetchingShifts, currentPatient, nextPatient, finishConsultation, newPatient, updateNumOffice, listOfDoctors, fetchLastShiftService };
+export {
+    fetchingShifts,
+    currentPatient,
+    schedulePatient,
+    nextPatient,
+    finishConsultation,
+    newPatient,
+    updateNumOffice,
+    listOfDoctors,
+    fetchLastShiftService
+};

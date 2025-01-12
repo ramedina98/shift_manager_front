@@ -17,7 +17,7 @@ interface INavBarDocView {
 const NavBarDocView: React.FC<INavBarDocView> = ({settings, setSettings, office, setOffice, startConsul, setStartConsul}) => {
 
     const { logout, consultorio, status } = useAuth();
-    const { nextShift, finishShift, currentShift, setCurrentShift, setShiftsMessageError, consultationDate, isSubmitting } = useShift();
+    const { nextSchedulePatient, nextShift, finishShift, currentShift, setCurrentShift, setShiftsMessageError, consultationDate, isSubmitting, schedulePatientProcess, finishingShift } = useShift();
 
     // This function handle the process of finish the currentShift...
     const finishTheCurrentShift = async (): Promise<void> => {
@@ -65,7 +65,12 @@ const NavBarDocView: React.FC<INavBarDocView> = ({settings, setSettings, office,
             case "next":
                 await nextShift();
                 if(startConsul && !currentShift){
-                    console.log("Hola")
+                    setStartConsul(false);
+                }
+            break;
+            case "citado":
+                await nextSchedulePatient();
+                if(startConsul && !currentShift){
                     setStartConsul(false);
                 }
             break;
@@ -102,7 +107,7 @@ const NavBarDocView: React.FC<INavBarDocView> = ({settings, setSettings, office,
                 </span>
             </div>
             <NavListDocView clickHandler={handleTheclickedLi} />
-            <NavListControlsDoc clickHandler={handleTheclickedLi} activeProccess={isSubmitting} />
+            <NavListControlsDoc clickHandler={handleTheclickedLi} schActiveProcess={schedulePatientProcess} activeProccess={isSubmitting} fnActiveProcess={finishingShift} />
         </div>
     );
 }
