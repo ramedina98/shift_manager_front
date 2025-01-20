@@ -30,7 +30,7 @@ const Viewer: React.FC<ViewerProps> = ({ changeDisplay }) => {
 
     return (
         <div
-            className="p-6 bg-Dark_Blue rounded-md shadow-md mt-2 mb-4 flex flex-wrap justify-between items-start gap-4"
+            className="p-6 rounded-md shadow-md mt-2 mb-4 flex flex-wrap justify-between items-start gap-4"
             style={{ width: 'clamp(210px, 90%, 1350px)', minHeight: '77vh' }}
         >
             {changeDisplay ?

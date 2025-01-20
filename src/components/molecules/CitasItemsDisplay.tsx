@@ -22,13 +22,13 @@ const CitasItemsDisplay: React.FC<CitasItemsDisplayProps> = ({
 
     const styles = { // input, label and icons...
         icon: 'text-White text-2xl ml-2 mr-2 mt-2',
-        label: 'text-Dark_Grayish_Blue text-md tracking-wider mr-3 mt-2',
+        label: 'text-white text-md tracking-wider mr-3 mt-2',
     }
     const nombreDoc = `${nom_doc} ${ape_doc}`;
     const nombrePaciente = `${nom_patient} ${ape_patient}`;
     return (
         <div
-            className="bg-Light_Grayish_Blue w-full my-3 flex flex-wrap gap-4 justify-between items-start p-3 rounded-md"
+            className="bg-white w-full my-3 flex flex-wrap gap-4 justify-between items-start p-3 rounded-md"
         >
             <LabelOutput
                 icon={faStethoscope}

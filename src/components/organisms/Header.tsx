@@ -17,7 +17,7 @@ const Header: React.FC = () => {
 
     return(
         <header
-            className="w-full bg-white shadow-sm flex justify-center items-center"
+            className="w-full bg-white shadow-md flex justify-center items-center"
         >
             <div
                 className="py-4 flex justify-between items-center"

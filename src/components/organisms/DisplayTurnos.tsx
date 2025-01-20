@@ -53,7 +53,7 @@ const DisplayTurnos: React.FC<DisplayTurnosProps> = ({data}) => {
                 </h2>
             </div>
             <div
-                className="bg-Grayish_Blue p-3 flex flex-col justify-center items-center"
+                className="bg-Muted_Blue p-3 px-2 flex flex-col justify-center items-center"
                 style={{ width: '580px', maxHeight: '100vh', overflowY: 'hidden'}}
             >
                 {info.map((turno: IConsultas, index: number) => (

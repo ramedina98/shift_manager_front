@@ -51,7 +51,7 @@ const DisplayAsignados: React.FC<DisplayAsignadosProps> = ({data}) => {
                 </h2>
             </div>
             <div
-                className="bg-Grayish_Blue p-3 flex flex-wrap gap-x-20 gap-y-4 justify-start items-start pl-9"
+                className="bg-Muted_Blue py-3 px-2q flex flex-wrap gap-x-20 gap-y-4 justify-start items-start pl-9"
                 style={{ width: '100%'}}
             >
                 {info.map((item, index: number) => (

@@ -74,7 +74,7 @@ const DisplayCitados: React.FC<DisplayCitasProps> = ({data}) => {
                 </h2>
             </div>
             <div
-                className="bg-Grayish_Blue p-3 flex flex-col justify-center items-center"
+                className="bg-Muted_Blue py-3 px-2 flex flex-col justify-center items-center"
                 style={{ width: '590px', maxHeight: '100vh', overflowY: 'hidden'}}
             >
                 {info.map((cita: ICitas, index: number) => (

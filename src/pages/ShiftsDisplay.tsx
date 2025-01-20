@@ -29,7 +29,7 @@ const ShiftsDisplay: React.FC = () => {
             )}
             <Header />
             <main
-                className="w-full bg-Light_Grayish_Blue flex justify-center items-center pt-28"
+                className="w-full flex justify-center items-center pt-28"
             >
                 <div
                     className="bg-Muted_Blue rounded-md flex flex-wrap gap-6 justify-between items-center p-3"

@@ -14,7 +14,7 @@ const AsignadosItemDisplay: React.FC<AsignadosItemDisplayProps> = ({turno, num_c
 
     return (
         <div
-            className="w-full bg-Light_Grayish_Blue my-3 flex justify-between items-center py-4 px-8 rounded-sm"
+            className="w-full bg-white my-3 flex justify-between items-center py-4 px-8 rounded-sm"
             style={{ width: "540px"}}
         >
             <div
