@@ -57,9 +57,13 @@ function useLoading() {
 }
 .${className} > div {
     animation-fill-mode: both;
-    width: 50px;
-    height: 50px;
-    background: #fff;
+    width: 150px;
+    height: 150px;
+    border-radius: 100%;
+    background: #8399b0;
+    background-image: url('https://lirp.cdn-website.com/a7da7508/dms3rep/multi/opt/352-147w.png');
+    background-size: cover;
+    background-position: center;
     animation: square-spin 3s 0s cubic-bezier(0.09, 0.57, 0.49, 0.9) infinite;
 }
 .app-loading-wrap {
@@ -71,7 +75,7 @@ function useLoading() {
     display: flex;
     align-items: center;
     justify-content: center;
-    background: #282c34;
+    background: #1d3245;
     z-index: 9;
 }
     `;
@@ -97,4 +101,4 @@ domReady().then(appendLoading);
 window.onmessage = (ev) => {
   ev.data.payload === "removeLoading" && removeLoading();
 };
-setTimeout(removeLoading, 4999);
+setTimeout(removeLoading, 3e3);
