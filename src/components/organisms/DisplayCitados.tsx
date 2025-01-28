@@ -38,15 +38,33 @@ const DisplayCitados: React.FC<DisplayCitasProps> = ({data}) => {
                     return !hasInvalidValues;
                 });
 
-            if (cleanedData.length > 1) {
+            if(cleanedData.length > 5){
+                const getRandomItems = (array: ICitas[], count: number): ICitas[] => {
+                    const shuffled = array.sort(() => 0.5 - Math.random());
+                    return shuffled.slice(0, count);
+                };
+
+                const randomItems = getRandomItems(cleanedData, 4);
+                console.log(randomItems);
+                setInfo(randomItems);
+            }else if (cleanedData.length > 1) {
                 const twoItems = cleanedData.slice(0, 4);
                 setInfo(twoItems);
                 return;
+            } else {
+                setInfo(cleanedData);
             }
-            setInfo(cleanedData);
         };
 
         cleanDataArray();
+
+        if(data.length > 5){
+            const interval = setInterval(() => {
+                cleanDataArray();
+            }, 30000);
+
+            return () => clearInterval(interval);
+        }
     }, [data]);
 
     const formatTime = (date: Date): string => {

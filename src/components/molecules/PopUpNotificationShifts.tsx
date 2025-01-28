@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import bell from "/assets/bell-172780.mp3";
 import "../../styles/index.css";
 
 interface PopUpProps {
@@ -17,7 +18,7 @@ const PopUpNotificationShift: React.FC<PopUpProps> = ({title, message, code, col
 
     useEffect(() => {
         const playAudioOnMount = (): void => {
-            const audio = new Audio("../../../public/NotiAudios/bell-172780.mp3");
+            const audio = new Audio(bell);
             audio.play().catch((error) => {
                 console.error("Error al reproducir el audio: ", error);
             });
