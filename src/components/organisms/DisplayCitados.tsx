@@ -88,7 +88,7 @@ const DisplayCitados: React.FC<DisplayCitasProps> = ({data}) => {
                 <h2
                     className="font-bold tracking-wide text-3xl"
                 >
-                    Citas
+                    Programados
                 </h2>
             </div>
             <div
