@@ -30,9 +30,7 @@ const App: React.FC = () => {
       "/inicio/resetpassword",
       "/shift-display",
     ];
-
-    // TODO: ELIMITAR CUANDO YA NO SE NECESITE...
-    console.log("Ruta actual: ", location.pathname);
+    
     const navigateToPage = async (token: string): Promise<void> => {
       try {
         const rol: string | null = await extractUserInfo(token, UserDataFields.ROL);

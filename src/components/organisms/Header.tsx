@@ -28,7 +28,7 @@ const Header: React.FC = () => {
                 >
                     <img
                         className={`${isHome ? "w-2/3 h-2/3" : "w-Wlogo h-Hlogo "}object-cover rounded-full`}
-                        src={isHome ? "https://cdn.icon-icons.com/icons2/1473/PNG/512/047house_101514.png" : logo}
+                        src={isHome ? "https://static.thenounproject.com/png/3574480-200.png" : logo}
                         alt=""
                     />
                 </figure>

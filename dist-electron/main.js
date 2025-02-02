@@ -13,8 +13,7 @@ function createWindow() {
       nodeIntegrationInWorker: true,
       nodeIntegrationInSubFrames: true,
       preload: path.join(app.getAppPath(), "dist-electron/preload.mjs"),
-      // 🔥 Ruta absoluta
-      webSecurity: false
+      webSecurity: true
     }
   });
   win.webContents.on("did-finish-load", () => {
