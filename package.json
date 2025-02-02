@@ -10,7 +10,8 @@
     "build": "tsc && vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
-    "packing": "electron-builder"
+    "packing": "electron-builder",
+    "packwin": "electron-builder --win"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.6.0",

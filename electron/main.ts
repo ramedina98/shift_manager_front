@@ -9,20 +9,19 @@ process.env.VITE_PUBLIC = app.isPackaged ? process.env.DIST : path.join(process.
 
 
 let win: BrowserWindow | null;
-const VITE_DEV_SERVER_URL = process.env['VITE_DEV_SERVER_URL'];
 
 function createWindow() {
     win = new BrowserWindow({
         minWidth: 850,
         minHeight: 850,
-        icon: '../public/assets/icon.ico',
+        icon: path.join(__dirname, '../public/assets/icon.ico'),
         webPreferences: {
             contextIsolation: true,
             nodeIntegration: true,
             nodeIntegrationInWorker: true,
             nodeIntegrationInSubFrames: true,
             preload: path.join(__dirname, 'preload.mjs'),
-            webSecurity: true,
+            webSecurity: false,
         },
     })
 
@@ -30,12 +29,7 @@ function createWindow() {
         win?.webContents.send('main-process-message', (new Date).toLocaleString())
     });
 
-    if (VITE_DEV_SERVER_URL) {
-        win.loadURL(VITE_DEV_SERVER_URL);
-    } else {
-        win.loadFile(path.join(process.env.DIST, 'index.html'));
-    }
-
+    win.loadFile(path.join(app.getAppPath(), 'dist', 'index.html'));
 }
 
 ipcMain.handle('print', (_event, content: string)=> {
