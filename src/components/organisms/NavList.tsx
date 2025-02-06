@@ -1,6 +1,6 @@
 import React from "react";
 import NavItem from "../molecules/NavItem";
-import { faKey, faUserPlus, faEye } from "@fortawesome/free-solid-svg-icons";
+import { faKey, faEye } from "@fortawesome/free-solid-svg-icons";
 
 interface NavBarProps {
     clickHandler(btn: string): void;
@@ -17,7 +17,7 @@ const NavList: React.FC<NavBarProps> = ({ clickHandler }) => {
 
     return (
         <ul
-            className="w-full px-3 flex flex-col justify-between items-cente"
+            className="w-full px-3 flex flex-col justify-around items-cente"
             style={{ minHeight: '520px'}}
         >
             <NavItem
@@ -27,14 +27,6 @@ const NavList: React.FC<NavBarProps> = ({ clickHandler }) => {
                 iconClassName={iconClassSetting}
                 textClassName={textClassSetting}
                 onClick={() => clickHandler('sesion')}
-            />
-            <NavItem
-                icon={faUserPlus}
-                label="Nuevo Usuario"
-                className={classSetting}
-                iconClassName={iconClassSetting}
-                textClassName={textClassSetting}
-                onClick={() => clickHandler('nuevo')}
             />
             <NavItem
                 icon={faEye}

@@ -25,7 +25,6 @@ const LoginForm: React.FC = () => {
     }
     // buttons styles...
     const loginButton = 'py-3 w-96 m-3 rounded-md text-md tracking-wider';
-    const nuevoUserButton = `${loginButton} `;
 
     // function to handle the inputs value...
     const inputsHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -146,7 +145,6 @@ const LoginForm: React.FC = () => {
                 </div>
                 {/**Btns */}
                 <Button classname={`${loginButton} bg-Dark_Blue text-White mt-10 hover:bg-Dark_Grayish_Blue transition-colors`} onClick={(e) => buttonsHandler(e, 'login')}>{'Iniciar Sesión'}</Button>
-                <Button classname={`${nuevoUserButton} bg-Muted_Blue text-White mb-4 hover:bg-Grayish_Blue transition-colors`} onClick={(e) => buttonsHandler(e, 'nuevo')}>{'Nuevo usuario'}</Button>
             </div>
         </form>
     );

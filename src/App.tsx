@@ -8,7 +8,6 @@ import extractUserInfo from "./utils/authUtils";
 import HomePage from "./pages/homePages";
 import DoctorPage from "./pages/DoctorPage";
 import LoginForm from "./components/templates/LoginForm";
-import RegisterForm from "./components/templates/RegisterForm";
 import RecoverPassForm from "./components/templates/RecoverPassForm";
 import ResetPassForm from "./components/templates/ResetPassForm";
 import ShiftCreatorPage from "./pages/ShiftCreatorPage";
@@ -30,7 +29,7 @@ const App: React.FC = () => {
       "/inicio/resetpassword",
       "/shift-display",
     ];
-    
+
     const navigateToPage = async (token: string): Promise<void> => {
       try {
         const rol: string | null = await extractUserInfo(token, UserDataFields.ROL);
@@ -75,7 +74,6 @@ const App: React.FC = () => {
         <Routes>
           <Route path="/inicio" element={<HomePage />} >
             <Route index element={<LoginForm />} />
-            <Route path="nuevo" element={<RegisterForm />} />
             <Route path="recover-password" element={<RecoverPassForm />} />
             <Route path="resetpassword" element={<ResetPassForm />} />
           </Route>
