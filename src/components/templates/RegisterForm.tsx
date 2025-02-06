@@ -30,6 +30,7 @@ const RegisterForm: React.FC = () => {
 
     const [rolItems, setRolItems] = useState<itemsList[]>([]);
     const [clickedLi, setClickedLi] = useState<string>("");
+    const [confirPassText, setConfirPassText] = useState<string>("");
     const [confirPassword, setConfirPassword] = useState<string>("Confirmar contraseña");
     const [typeDinamicGate, setTypeDinamicGate] = useState<boolean>(false);
     const [verPass, setVerPass] = useState<boolean>(false);
@@ -52,7 +53,6 @@ const RegisterForm: React.FC = () => {
     }
     // buttons styles...
     const loginButton = 'py-3 w-96 m-3 rounded-md text-md tracking-wider';
-    const nuevoUserButton = `${loginButton} `;
 
     // object with the li itmes of rol field...
     const liItems: itemsList []= [
@@ -155,6 +155,7 @@ const RegisterForm: React.FC = () => {
                 }
             }
         } else {
+            setConfirPassText(value);
             if(loginInfo.password !== value){
                 setConfirPassword("No coincide");
 
@@ -223,6 +224,8 @@ const RegisterForm: React.FC = () => {
                             foto: '',
                             type: ''
                         });
+                        setConfirPassText('');
+                        setClickedLi('');
                     } catch (error) {
                         console.log('error: ' + error)
                     }
@@ -254,7 +257,7 @@ const RegisterForm: React.FC = () => {
     return (
         <form
             className="bg-Grayish_Blue shadow-md rounded-md flex flex-col justify-start items-center p-8 my-11"
-            style={{ width: "clamp(230px, 90%, 670px)", height: "600px" }}
+            style={{ width: "clamp(230px, 90%, 670px)", height: "800px" }}
         >
             <IconHolder icon={faUserPlus} iconClassname={'text-Light_Grayish_Blue text-5xl'} holderColor="#1d3245" holderSize="98px"/>
             <div
@@ -391,6 +394,7 @@ const RegisterForm: React.FC = () => {
                         inputName={'confirPassword'}
                         inputMax={150}
                         inputType={verPass ? 'text' : 'password'}
+                        value={confirPassText}
                         placeholder={'Confirmación contraseña'}
                         inputHanler={inputsHandler}
                     />
@@ -429,7 +433,6 @@ const RegisterForm: React.FC = () => {
                 />
                 {/**Btns */}
                 <Button classname={`${loginButton} bg-Dark_Blue text-White mt-10 hover:bg-Dark_Grayish_Blue transition-colors`} onClick={(e) => buttonsHandler(e, 'nuevo')}>{'Registrar nuevo usuario'}</Button>
-                <Button classname={`${nuevoUserButton} bg-Muted_Blue text-White mb-4 hover:bg-Grayish_Blue transition-colors`} onClick={(e) => buttonsHandler(e, 'login')}>{'Iniciar Sesión'}</Button>
             </div>
         </form>
     );

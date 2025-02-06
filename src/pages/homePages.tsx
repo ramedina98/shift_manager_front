@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import { useAuth } from "../contexts/AuthContext";
 import { faWarning, faCheckCircle } from "@fortawesome/free-solid-svg-icons";
 import Header from "../components/organisms/Header";
-import NavBar from "../components/templates/NavBar";
 import Footer from "../components/organisms/Footer";
 import Notification from "../components/molecules/Notification";
 import PopUpNotification from "../components/molecules/PopUpNotification";
@@ -37,7 +36,6 @@ export default function HomePage(){
                         onClose={closeHandlerNotification}
                     />
                 )}
-                <NavBar />
                 <div
                     className="border-2 w-full flex justify-center items-center"
                     style={{ minHeight: '90vh' }}
