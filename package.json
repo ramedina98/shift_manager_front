@@ -1,8 +1,8 @@
 {
-  "name": "san-jose-turnos",
+  "name": "san-jose-register",
   "private": true,
   "version": "0.0.0",
-  "description": "Aplicación Electron para gestión de turnos",
+  "description": "Aplicación Electron para crear nuevos usuarios",
   "author": "Ricardo Abraham Medina Martin Del Campo",
   "type": "module",
   "scripts": {
