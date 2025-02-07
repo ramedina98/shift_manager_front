@@ -25,3 +25,5 @@ dist-ssr
 build
 release
 *json5
+
+*.yml
