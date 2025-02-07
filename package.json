@@ -1,7 +1,7 @@
 {
   "name": "san-jose-turnos",
   "private": true,
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Aplicación Electron para gestión de turnos",
   "author": "Ricardo Abraham Medina Martin Del Campo",
   "type": "module",
