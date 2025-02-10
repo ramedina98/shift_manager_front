@@ -1,38 +1,31 @@
-import { app, ipcMain, BrowserWindow } from "electron";
-import path from "path";
-process.env.DIST = path.join(app.getAppPath(), "dist");
-process.env.VITE_PUBLIC = app.isPackaged ? process.env.DIST : path.join(process.env.DIST, "../public");
-let win;
-function createWindow() {
-  win = new BrowserWindow({
+import { app as e, ipcMain as s, BrowserWindow as o } from "electron";
+import t from "path";
+process.env.DIST = t.join(e.getAppPath(), "dist");
+process.env.VITE_PUBLIC = e.isPackaged ? process.env.DIST : t.join(process.env.DIST, "../public");
+let n;
+function i() {
+  n = new o({
     minWidth: 850,
     minHeight: 850,
     webPreferences: {
-      contextIsolation: true,
-      nodeIntegration: true,
-      nodeIntegrationInWorker: true,
-      nodeIntegrationInSubFrames: true,
-      preload: path.join(app.getAppPath(), "dist-electron/preload.mjs"),
-      webSecurity: true
+      contextIsolation: !0,
+      nodeIntegration: !0,
+      nodeIntegrationInWorker: !0,
+      nodeIntegrationInSubFrames: !0,
+      preload: t.join(e.getAppPath(), "dist-electron/preload.mjs"),
+      webSecurity: !0
     }
-  });
-  win.webContents.on("did-finish-load", () => {
-    win == null ? void 0 : win.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
-  });
-  win.loadURL("file://" + path.join(app.getAppPath(), "dist/index.html"));
+  }), n.webContents.on("did-finish-load", () => {
+    n == null || n.webContents.send("main-process-message", (/* @__PURE__ */ new Date()).toLocaleString());
+  }), n.loadURL("file://" + t.join(e.getAppPath(), "dist/index.html"));
 }
-ipcMain.handle("print", (_event, content) => {
-  console.log("Print: " + content);
+s.handle("print", (a, r) => {
+  console.log("Print: " + r);
 });
-app.on("window-all-closed", () => {
-  if (process.platform !== "darwin") {
-    app.quit();
-    win = null;
-  }
+e.on("window-all-closed", () => {
+  process.platform !== "darwin" && (e.quit(), n = null);
 });
-app.on("activate", () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
-  }
+e.on("activate", () => {
+  o.getAllWindows().length === 0 && i();
 });
-app.whenReady().then(createWindow);
+e.whenReady().then(i);
