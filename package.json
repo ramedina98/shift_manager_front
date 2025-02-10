@@ -1,7 +1,7 @@
 {
   "name": "san-jose-register",
   "private": true,
-  "version": "Register - 0.0.2",
+  "version": "0.0.2",
   "description": "Aplicación Electron para crear nuevos usuarios",
   "author": "Ricardo Abraham Medina Martin Del Campo",
   "type": "module",
